@@ -1,0 +1,31 @@
+{
+  "name": "namsate_react",
+  "version": "1.0.0",
+  "description": "namaste_react by Suman Bera",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel index.html",
+    "build":"parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SumanB1432/namsate_react.git"
+  },
+  "author": "Suman Bera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SumanB1432/namsate_react/issues"
+  },
+  "homepage": "https://github.com/SumanB1432/namsate_react#readme",
+  "devDependencies": {
+    "parcel": "^2.8.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "browserlist":[
+    "last 2 chrome version"
+  ]
+}
