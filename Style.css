@@ -54,3 +54,11 @@
    
 
 }
+.filter-btn{
+    margin: 10px;
+    
+}
+.filter-btn:hover{
+  color: red;
+  cursor: pointer;
+}
