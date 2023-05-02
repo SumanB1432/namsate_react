@@ -1,6 +1,7 @@
 import ResCart from "./ResCart";
 import {restaurantList} from "../utils/Constants";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import Loading from "./LoadingU";
 let resto = [
     {
     data:{
@@ -18,22 +19,53 @@ let resto = [
 }
 ]
 const Body = ()=>{
-    let [res,setResList] = useState(restaurantList)
-    return (<div className="body">
+      let [allRes,setAllres] = useState([])
+    let [filterRes,setFilterRes] = useState([])
+    let [res1,setRes1] = useState("")
+
+    useEffect(()=>{
+     getRestorent()
+    },[])
+    console.log("render")
+
+    async function getRestorent(){
+      let data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.724178&lng=88.4255165&page_type=DESKTOP_WEB_LISTING");
+      let json = await data.json();
+      setAllres(json?.data?.cards[2]?.data?.data?.cards)
+      setFilterRes(json?.data?.cards[2]?.data?.data?.cards)
+    }
+
+    function changeVal(e){
+      console.log(e.target.value)
+      setRes1(e.target.value)
+    }
+    function search(filter){
+      let data = allRes.filter((item)=>item.data.name.indexOf(filter)!=-1)
+      setFilterRes(data)
+
+    }
+
+
+    return filterRes.length==0 ? <Loading /> : (<div className="body">
           <div className="filter">
             <button className="filter-btn" onClick={()=>{
-            res= res.filter((res)=>res.data.avgRating<4); console.log(resto)
-            setResList(res)
+            filterRes= filterRes.filter((res)=>res.data.avgRating>4);
+            setFilterRes(filterRes)
             }}>Top Rated Restorent
             </button>
             
             
           </div>
+          <div className="search">
+            <input type="text" value={res1} onChange={(e)=>changeVal(e)}></input>
+            <button type="button" onClick={()=>search(res1)}>Search</button>
+
+          </div>
           
           <div className="res-container">
 
                 {
-                      res.map((item)=>
+                      filterRes.map((item)=>
                             <ResCart  key={item.data.id} resData = {item}/>
 
                       )
