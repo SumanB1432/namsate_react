@@ -2,6 +2,7 @@ import ResCart from "./ResCart";
 import {restaurantList} from "../utils/Constants";
 import { useState,useEffect } from "react";
 import Loading from "./LoadingU";
+import Filter from "./FilterLoading";
 let resto = [
     {
     data:{
@@ -40,13 +41,17 @@ const Body = ()=>{
       setRes1(e.target.value)
     }
     function search(filter){
-      let data = allRes.filter((item)=>item.data.name.indexOf(filter)!=-1)
-      setFilterRes(data)
+       filter = filter.toLowerCase();
+       console.log(filter)
+      let data = allRes.filter((item)=>item?.data?.name?.toLowerCase().indexOf(filter)!=-1)
+      console.log(data.length)
 
-    }
+      data.length !== 0 ?  setFilterRes(data) : setFilterRes(null)
+   
+}
+//     if(filterRes?.length==0) return <h1>No resturent is found</h1>
 
-
-    return filterRes.length==0 ? <Loading /> : (<div className="body">
+    return allRes.length==0 ? <Loading /> : (<div className="body">
           <div className="filter">
             <button className="filter-btn" onClick={()=>{
             filterRes= filterRes.filter((res)=>res.data.avgRating>4);
@@ -63,12 +68,16 @@ const Body = ()=>{
           </div>
           
           <div className="res-container">
-
+            
+               
                 {
+                  
+                      filterRes!=null ?
                       filterRes.map((item)=>
                             <ResCart  key={item.data.id} resData = {item}/>
 
-                      )
+                      ): <Filter />
+
                 }
                 {/* <ResCart resData = {restaurantList[0]}/> */}
             
