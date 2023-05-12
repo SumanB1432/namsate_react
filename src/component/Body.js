@@ -3,6 +3,8 @@ import {restaurantList} from "../utils/Constants";
 import { useState,useEffect } from "react";
 import Loading from "./LoadingU";
 import Filter from "./FilterLoading";
+import { Link } from "react-router-dom";
+import { Search } from "../utils/Search";
 let resto = [
     {
     data:{
@@ -40,15 +42,15 @@ const Body = ()=>{
       console.log(e.target.value)
       setRes1(e.target.value)
     }
-    function search(filter){
-       filter = filter.toLowerCase();
-       console.log(filter)
-      let data = allRes.filter((item)=>item?.data?.name?.toLowerCase().indexOf(filter)!=-1)
-      console.log(data.length)
+//     function search(filter){
+//        filter = filter.toLowerCase();
+//        console.log(filter)
+//       let data = allRes.filter((item)=>item?.data?.name?.toLowerCase().indexOf(filter)!=-1)
+//       console.log(data.length)
 
-      data.length !== 0 ?  setFilterRes(data) : setFilterRes(null)
+//       data.length !== 0 ?  setFilterRes(data) : setFilterRes(null)
    
-}
+// }
 //     if(filterRes?.length==0) return <h1>No resturent is found</h1>
 
     return allRes.length==0 ? <Loading /> : (<div className="body">
@@ -63,7 +65,10 @@ const Body = ()=>{
           </div>
           <div className="search">
             <input type="text" value={res1} onChange={(e)=>changeVal(e)}></input>
-            <button type="button" onClick={()=>search(res1)}>Search</button>
+            <button type="button" onClick={()=>{
+              let data = Search(res1,allRes)
+             data.length!=0? setFilterRes(data):setFilterRes(null)
+            }}>Search</button>
 
           </div>
           
@@ -74,7 +79,7 @@ const Body = ()=>{
                   
                       filterRes!=null ?
                       filterRes.map((item)=>
-                            <ResCart  key={item.data.id} resData = {item}/>
+                         <Link to={`/restaurant/${item.data.id}`} style={{"textDecoration":"none"}}><ResCart  key={item.data.id} resData = {item}/></Link>   
 
                       ): <Filter />
 

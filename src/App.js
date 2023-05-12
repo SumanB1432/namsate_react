@@ -39,7 +39,7 @@ const AppLayOut = ()=>{
                 <Header/>
                 <Outlet />
                 {/* <Body /> */}
-                <Footer/>
+                <Footer name="Suman Bera"/>
             </div>
       )
 }

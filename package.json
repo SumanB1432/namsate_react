@@ -25,7 +25,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loading-screen": "^0.0.17",
-    "react-router-dom": "^6.11.1"
+    "react-router-dom": "^6.11.1",
+    "react-social-icons": "^5.15.0"
   },
   "browserlist": [
     "last 2 chrome version"
